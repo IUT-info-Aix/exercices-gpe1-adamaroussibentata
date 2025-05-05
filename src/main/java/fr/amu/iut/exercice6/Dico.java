@@ -1,41 +1,20 @@
 package fr.amu.iut.exercice6;
 
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Random;
 
-public class Dico {
 
-    private final ArrayList<String> listeMots;
+class Dico {
+    private final String[] mots = {"ordinateur","erreur","programmation","java","developpeur"};
 
-    public Dico() {
-        listeMots = new ArrayList<>();
-        InputStream streamDico = getClass().getResourceAsStream("/exercice6/dico");
-        String mot;
-        try {
-            assert streamDico != null;
-            try (BufferedReader lecteur = new BufferedReader(new InputStreamReader(streamDico))) {
-                while ((mot = lecteur.readLine()) != null) {
-                    listeMots.add(mot);
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Erreur de lecture du fichier : " + e.getMessage());
-        }
-    }
     public String getMot() {
-        Random random = new Random();
-        int numMotChoisi = random.nextInt(listeMots.size());
-        return listeMots.get(numMotChoisi);
+        return mots[(int)(Math.random()*mots.length)];
     }
 
     public ArrayList<Integer> getPositions(char lettre, String mot) {
-        ArrayList<Integer> listePositions = new ArrayList<>();
-        for (int index = 0; index < mot.length(); index++) {
-            if (mot.charAt(index) == lettre) {
-                listePositions.add(index);
-            }
-        }
-        return listePositions;
+        ArrayList<Integer> l = new ArrayList<>();
+        for (int i = 0; i < mot.length(); i++)
+            if (mot.charAt(i) == lettre) l.add(i);
+        return l;
     }
 }
+
