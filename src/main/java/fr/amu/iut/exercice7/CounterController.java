@@ -1,22 +1,42 @@
 package fr.amu.iut.exercice7;
 
 
-import javafx.fxml.Initializable;
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
 
-public class CounterController implements Initializable {
+public class CounterController {
 
-    int counter = 0;
+    @FXML
+    private Label counterLabel;  // lié au <Label fx:id="counterLabel">
 
-    public void increment() {
+    private int counter = 0;     // valeur du compteur
+
+    /**
+     * Appelé juste après le chargement du FXML : initialise l'affichage.
+     */
+    @FXML
+    private void initialize() {
+        counterLabel.setText(String.valueOf(counter));
     }
 
-    public void decrement() {
+    /**
+     * Incrémente le compteur et met à jour le label.
+     * Lien FXML : onAction="#increment"
+     */
+    @FXML
+    private void increment(ActionEvent event) {
+        counter++;
+        counterLabel.setText(String.valueOf(counter));
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        System.out.println("Initializing CounterController...");
-   }
+    /**
+     * Décrémente le compteur et met à jour le label.
+     * Lien FXML : onAction="#decrement"
+     */
+    @FXML
+    private void decrement(ActionEvent event) {
+        counter--;
+        counterLabel.setText(String.valueOf(counter));
+    }
 }
