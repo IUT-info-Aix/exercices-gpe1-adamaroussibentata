@@ -1,27 +1,46 @@
 package fr.amu.iut.exercice10;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
+import javafx.beans.Observable;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.SimpleStringProperty;
 
-import java.net.URL;
+public class Personne {
 
-public class Conteneurs extends Application {
-    public static void main(String[] args) {
-        launch(args);
+    private final String nom;
+    private final IntegerProperty age;
+    private final StringProperty villeDeNaissance;
+
+    public Personne(String nom, int age) {
+        this.nom = nom;
+        // Transforme l’attribut age en propriété observable
+        this.age = new SimpleIntegerProperty(age);
+        this.villeDeNaissance = new SimpleStringProperty("Paris");
     }
 
-    @Override
-    public void start(Stage stage) {
-        try {
-            BorderPane root = FXMLLoader.load(getClass().getClassLoader().getResource("exercice10/ConteneursView.fxml"));
-            stage.setScene(new Scene(root));
-            stage.setTitle("Premier exemple manipulant les conteneurs");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String getNom() {
+        return nom;
+    }
+
+    public int getAge() {
+        return age.get();
+    }
+
+    public void setAge(int age) {
+        this.age.set(age);
+    }
+
+    /** Pour que FXCollections.observableArrayList(...) puisse écouter les changements d’âge */
+    public IntegerProperty ageProperty() {
+        return age;
+    }
+
+    public String getVilleDeNaissance() {
+        return villeDeNaissance.get();
+    }
+
+    public StringProperty villeDeNaissanceProperty() {
+        return villeDeNaissance;
     }
 }
